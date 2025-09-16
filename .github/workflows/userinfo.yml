@@ -1,21 +1,4 @@
-name: User Info Workflow
-
-# Määritellään, milloin workflow käynnistyy
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  display-user:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Haetaan repositoryn sisältö
-      - name: Checkout repositoryname: User Info Check
+name: User Info Check
 
 on:
   push:
@@ -30,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Haetaan repositoryn sisältö
+      # Haetaan repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -43,10 +26,3 @@ jobs:
             echo "❌ Name NOT found in README.md"
             exit 1
           fi
-
-        uses: actions/checkout@v3
-
-      # Tulostetaan nimesi logiin
-      - name: Print user info
-        run: |
-          echo "Hello, your name is Nicholas!"
