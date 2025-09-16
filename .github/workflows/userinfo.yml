@@ -1,0 +1,24 @@
+name: User Info Workflow
+
+# Määritellään, milloin workflow käynnistyy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  display-user:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Haetaan repositoryn sisältö
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Tulostetaan nimesi logiin
+      - name: Print user info
+        run: |
+          echo "Hello, your name is Nicholas!"
