@@ -1,13 +1,6 @@
 name: Build Workflow
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+on: workflow_call
 permissions:
   contents: write   # (1p) annetaan kirjoitusoikeudet, jotta commit/push toimii
 
