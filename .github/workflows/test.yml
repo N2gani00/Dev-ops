@@ -13,20 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
+      # Step1: Checkout repository (2p)
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Server tests
-      - name: Install & test server
+      # Step2: Server tests
+      - name: Install dependencies and test server
         run: |
           cd server
-          npm install
-          npm test
+          npm install   # (1p)
+          npm test      # (1p)
 
-      # Step 3: Client tests
-      - name: Install & test client
+      # Step3: Client tests
+      - name: Install dependencies and test client
         run: |
           cd client
-          npm install
-          npm test
+          npm install   # (1p)
+          npm test      # (1p)
+
+      # Extra: Run only on main branch push (1p)
+      - name: Verify branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "❌ Workflow is not running on main branch. Exiting."
+          exit 1
