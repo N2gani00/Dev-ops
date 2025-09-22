@@ -1,0 +1,43 @@
+name: Build Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write   # (1p) annetaan kirjoitusoikeudet, jotta commit/push toimii
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step1: Checkout (1p)
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step2: Asennetaan ja buildataan client (3p)
+      - name: Install and build client
+        run: |
+          cd client   # (1p)
+          npm install # (1p)
+          npm run build # (1p)
+
+      # Step3: Kopioidaan build server/public -kansioon (2p)
+      - name: Copy build files to server/public
+        run: |
+          rm -rf server/public/*
+          cp -r client/build/* server/public/
+
+      # Step4: Commit & push muutokset (2p)
+      - name: Commit and push build
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add server/public
+          git commit -m "Add latest React build"
+          git push
