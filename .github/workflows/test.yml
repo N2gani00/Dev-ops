@@ -1,0 +1,32 @@
+name: Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Server tests
+      - name: Install & test server
+        run: |
+          cd server
+          npm install
+          npm test
+
+      # Step 3: Client tests
+      - name: Install & test client
+        run: |
+          cd client
+          npm install
+          npm test
